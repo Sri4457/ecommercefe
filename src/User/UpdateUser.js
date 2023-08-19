@@ -3,18 +3,19 @@ import { useParams } from 'react-router-dom'
 import UserService from '../Service/UserService';
 
 export default function UpdateUser() {
-    const username=useParams().uname;
+    const id=useParams().id;
     const [password,setPword]=useState('');
     const [email,setEmail]=useState('');
     const [userstatus,setStatus]=useState('');
-    const [id,setId]=useState(0);
+    const [username,setId]=useState('');
 
     useEffect(()=>{
-      UserService.getUser(username).then((res)=>{
+      
+      UserService.getUserById(id).then((res)=>{
         setPword(res.data.password);
         setEmail(res.data.email);
         setStatus(res.data.userstatus);
-        setId(res.data.id);
+        setId(res.data.username);
       })
     },[])
     const navigateToPage  = (url)=>{
@@ -38,8 +39,12 @@ export default function UpdateUser() {
           window.confirm(res.data.msg);
 
         }
-        navigateToPage(`/user/${username}`);
+        navigateToPage(`/user/${id}`);
       })
+    }
+    const viewproducts = (e) =>{
+
+      navigateToPage(`/user/viewproducts/${id}`);
     }
   return (
     <div>
@@ -66,6 +71,8 @@ export default function UpdateUser() {
                                 <input type="text" placeholder='Your Status' name='userstatus' value={userstatus} disabled className='form-control'/>
                             </div>
                             <button type="button" onClick={updateuser} class="btn btn-success">Update</button>
+                            <button type="button" onClick={viewproducts} class="btn btn-success">click</button>
+                            
                         </form>
                     </div>
                 </div>

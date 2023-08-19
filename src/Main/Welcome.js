@@ -9,7 +9,8 @@ export default class Welcome extends Component {
       
       this.state ={
         username:'',
-        password:''
+        password:'',
+        id:''
       }
       this.changeUsername=this.changeUsername.bind(this);
       this.changePassword=this.changePassword.bind(this);
@@ -25,25 +26,25 @@ export default class Welcome extends Component {
       this.setState({password: event.target.value});
     }
     
-    showMsg = (res) =>{
-      if(res.data.error)
-        {
-          this.navigateToPage("/");
-        }
-        else if(this.state.username==="admin"){
-          this.navigateToPage("/admin");
-        }
-        else{
-          this.navigateToPage(`/user/${this.state.username}`);
-        }
-      };
   login = (e)=>
   {
     e.preventDefault();
     let users={username: this.state.username,password: this.state.password};
+    
     CommonService.login(users).then((res)=>
     {
-      this.showMsg(res);
+      if(res.data===null)
+        {
+          this.navigateToPage("/");
+        }
+        else if(res.data.id===1){
+          this.navigateToPage("/admin");
+        }
+        else
+        {
+          console.log(res.data.id);
+          this.navigateToPage(`/user/${res.data.id}`);
+        }
     });
   }
   render()

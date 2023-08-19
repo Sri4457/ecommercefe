@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const view_all_users="http://localhost:8080/admin/user/viewall";
-const view_all_products="http://localhost:8080/product/viewall";
 const view_all_new_users="http://localhost:8080/admin/user/viewnewusers"
 const add_user="http://localhost:8080/user/add"
 const add_product="http://localhost:8080/admin/product/add"
@@ -17,11 +16,6 @@ class AdminService{
 
     getUser(){
         return axios.get(view_all_users);
-    }
-
-    getAllProducts()
-    {
-        return axios.get(view_all_products);
     }
 
     getAllNewUsers(){

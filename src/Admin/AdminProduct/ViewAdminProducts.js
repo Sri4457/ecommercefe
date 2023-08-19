@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import AdminService from '../../Service/AdminService';
+import CommonService from '../../Service/CommonService';
 
 export default class ViewProducts extends Component {
     constructor(props)
@@ -17,7 +18,7 @@ export default class ViewProducts extends Component {
         window.location.href = `/admin/product/update/${id}`;
     }
     componentDidMount (){
-        AdminService.getAllProducts().then((res) =>{
+        CommonService.getAllProducts().then((res) =>{
             this.setState({ products: res.data })
         });
     }

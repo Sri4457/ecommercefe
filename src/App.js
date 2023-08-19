@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Welcome from './Main/Welcome';
 import ViewNewUsers from './Admin/AdminUser/ViewNewUsers';
 import AddProduct from './Admin/AdminProduct/AddProduct';
-import ViewProducts from './Admin/AdminProduct/ViewProducts';
+import ViewAdminProducts from './Admin/AdminProduct/ViewAdminProducts';
 import AddUser from './common/AddUser';
 import ViewOrders from'./Admin/ViewOrders';
 import DeleteProductsByQty from './Admin/AdminProduct/DeleteProductsByQty'
@@ -13,7 +13,9 @@ import HeaderComponent from './Admin/HeaderComponent';
 import ViewAllUsers from './Admin/AdminUser/ViewAllUsers';
 import UpdateProduct from './Admin/AdminProduct/UpdateProduct';
 import UpdateUser from './User/UpdateUser';
-import { useEffect } from 'react';
+import ViewUserProducts from './User/ViewUserProducts';
+import ViewCart from './User/ViewCart';
+import UpdateItem from './User/UpdateItem';
 
 function App() {
   
@@ -26,14 +28,17 @@ function App() {
               <Route path='/user/add' element={<AddUser/> } />
               <Route path='/admin/user/viewnewusers' Component={ViewNewUsers} />
               <Route path='/admin/product/add'  Component={AddProduct} />
-              <Route path='/admin/product/viewall' Component={ViewProducts} />
+              <Route path='/admin/product/viewall' Component={ViewAdminProducts} />
               <Route path='/admin/countordersby' Component={ViewOrders} />
               <Route path='/admin/users/viewall' Component={ViewAllUsers}/>
               <Route path= '/admin/product/update/:id' Component={UpdateProduct } />   
               <Route path='/admin/product/deletebyqty' Component={DeleteProductsByQty}/> 
 
 
-              <Route path='/user/:uname' Component={UpdateUser}/>   
+              <Route path='/user/:id' Component={UpdateUser}/>   
+              <Route path='/user/viewproducts/:id' Component={ViewUserProducts} />
+              <Route path='/user/viewcart/:id' Component={ViewCart}/>
+              <Route path='/user/updatecartitem/:cid' Component={UpdateItem}/>
           </Routes>
         </div>
       </Router>
