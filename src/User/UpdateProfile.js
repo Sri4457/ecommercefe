@@ -39,15 +39,12 @@ export default function UpdateUser() {
           window.confirm(res.data.msg);
 
         }
-        navigateToPage(`/user/${id}`);
+        navigateToPage(`/user/updateprofile/${id}`);
       })
     }
-    const viewproducts = (e) =>{
-
-      navigateToPage(`/user/viewproducts/${id}`);
-    }
+   
   return (
-    <div>
+    <div className='container'>
         <div className='container'>
             <div className='row'>
                 <div className='card col-md-6 offset-md-3 offset-md-3'>
@@ -71,7 +68,6 @@ export default function UpdateUser() {
                                 <input type="text" placeholder='Your Status' name='userstatus' value={userstatus} disabled className='form-control'/>
                             </div>
                             <button type="button" onClick={updateuser} class="btn btn-success">Update</button>
-                            <button type="button" onClick={viewproducts} class="btn btn-success">click</button>
                             
                         </form>
                     </div>

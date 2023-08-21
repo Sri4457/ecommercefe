@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import UserService from '../Service/UserService';
 import { useParams } from 'react-router-dom';
-import CommonService from '../Service/CommonService';
 
 export default function ViewCart() {
 
     const id=parseInt(useParams().id);
     const [carts,setCarts]=useState([]);
+    const [msgs,setMsgs]=useState([]);
+    const [msg,setMsg]=useState('');
 
     useEffect(()=>{
         UserService.getCartByUId(id).then((res)=>
@@ -33,12 +34,23 @@ export default function ViewCart() {
     })
    }
 
+   const submitcart = ()=>{
+    UserService.submitcart(carts).then((res)=>{
+        setMsgs(res.data);
+        msgs.map(
+            m=>setMsg(msg+m)
+        )
+        window.confirm(msg);
+        navigateToPage(`/user/orders/${id}`);
+    })
+   }
+
    const updatecart = (cid) =>{
     navigateToPage(`/user/updatecartitem/${cid}`);
    }
 
   return (
-    <div >
+    <div className='container'>
         <h2 className='text-center'>Cart Item List</h2>
         <div className='row'>
             <table className='table table-striped table-bordered'>
@@ -64,13 +76,22 @@ export default function ViewCart() {
                                 <td>{cart.price*cart.qty}</td>
                                 <td><button type="button" onClick={()=> deleteProduct(cart.id)} class="btn btn-danger">Delete Item</button>
                                 &nbsp;&nbsp;&nbsp;<button type="button" onClick={()=> updatecart(cart.id)} class="btn btn-warning">Update Item</button>
-                                
                                 </td>
                             </tr>
                         )
                     }
                 </tbody>
             </table>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100vh', 
+                }}
+            >
+                <button className="btn btn-primary" onClick={()=> submitcart()}>Submit Cart</button>
+            </div>
         </div>
       </div>
   )

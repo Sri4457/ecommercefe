@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const login_url="http://localhost:8080/login"
 const view_all_products="http://localhost:8080/product/viewall";
-const get_product_by_id="http://localhost:8080//product/viewbyid";
+const get_product_by_id="http://localhost:8080/product/viewbyid";
+const sort_product="http://localhost:8080/product/sort";
 class CommonService
 {
     login(Users)
@@ -15,6 +16,10 @@ class CommonService
     getProductById(id)
     {
         return axios.get(get_product_by_id+"/"+id);
+    }
+    getProductsBySort(pname)
+    {
+        return axios.get(sort_product+"/"+pname);
     }
 }
 export default new CommonService()

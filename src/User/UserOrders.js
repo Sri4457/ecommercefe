@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import AdminService from '../Service/AdminService';
+import UserService from '../Service/UserService';
 
-export default function ViewOrders() {
+export default function UserOrders() {
     const id=parseInt(useParams().id);
     const [orders,setOrders]=useState([]);
-    
 
     useEffect(()=>{
-        AdminService.getOrdersByUid(id).then((res)=>{
+        UserService.getOrdersByUId(id).then((res)=>{
             setOrders(res.data);
         })
-    },[]);
-
-    const navigateToPage= (url)=>{
-        window.location.href=url;
-    }
-
-    const updatestatus= (e)=>{
-        const orderitem = `id=${id}&e=${encodeURIComponent(JSON.stringify(e))}`;
-        navigateToPage(`/admin/user/orders/updatestatus?${orderitem}`);
-    }
-
-
+    },[])
   return (
     <div className='container'>
         <h2 className='text-center'>Orders List</h2>
@@ -36,24 +24,20 @@ export default function ViewOrders() {
                         <td>No of items</td>
                         <td>Total Cost of product</td>
                         <td>Status of order</td>
-                        <td>Actions</td>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         orders.map(
-                            order=>
-                            <tr key={order.id}>
-                                <td>{order.category}</td>
-                                <td>{order.pname}</td>
-                                <td>{order.pcost}</td>
-                                <td>{order.quantity}</td>
-                                <td>{order.cost}</td>
+                            cart =>
+                            <tr key={cart.id}>
+                                <td>{cart.pname}</td>
+                                <td>{cart.category}</td>
+                                <td>{cart.pcost}</td>
+                                <td>{cart.qty}</td>
+                                <td>{cart.totalcost}</td>
                                 <td>
-                                    {order.order_status}
-                                </td>
-                                <td>
-                                    <button className='btn btn-warning' onClick={()=> updatestatus(order)} >Update Status</button>
+                                    {cart.status}
                                 </td>
                             </tr>
                         )

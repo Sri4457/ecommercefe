@@ -1,47 +1,157 @@
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import 'react-toastify/dist/ReactToastify.css';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+
 import Welcome from './Main/Welcome';
 import ViewNewUsers from './Admin/AdminUser/ViewNewUsers';
 import AddProduct from './Admin/AdminProduct/AddProduct';
 import ViewAdminProducts from './Admin/AdminProduct/ViewAdminProducts';
-import AddUser from './common/AddUser';
-import ViewOrders from'./Admin/ViewOrders';
+import ViewOrderBtwdates from'./Admin/ViewOrdersBtwDates';
 import DeleteProductsByQty from './Admin/AdminProduct/DeleteProductsByQty'
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-import HeaderComponent from './Admin/HeaderComponent';
+import HeaderComponent from './Admin/AdminHeaderComponent';
 import ViewAllUsers from './Admin/AdminUser/ViewAllUsers';
 import UpdateProduct from './Admin/AdminProduct/UpdateProduct';
-import UpdateUser from './User/UpdateUser';
+import UpdateUser from './User/UpdateProfile';
 import ViewUserProducts from './User/ViewUserProducts';
 import ViewCart from './User/ViewCart';
 import UpdateItem from './User/UpdateItem';
+import WelcomeHeader from './common/WelcomeHeader';
+import AdminAddUser from './Admin/AdminUser/AdminAddUser';
+import Admin from './Admin/Admin';
+import UserHeaderComponent from './User/UserHeaderComponent';
+import User from './User/User';
+import UserOrders from './User/UserOrders';
+import ViewOrders from './Admin/ViewOrders';
+import UpdateOrderStatus from './Admin/UpdateOrderStatus';
 
 function App() {
   
   return(
+    <div>
       <Router>
-        <HeaderComponent/>
-        <div className='container'>
           <Routes>
-            <Route path='/' exact element={<Welcome/>} ></Route>
-              <Route path='/user/add' element={<AddUser/> } />
-              <Route path='/admin/user/viewnewusers' Component={ViewNewUsers} />
-              <Route path='/admin/product/add'  Component={AddProduct} />
-              <Route path='/admin/product/viewall' Component={ViewAdminProducts} />
-              <Route path='/admin/countordersby' Component={ViewOrders} />
-              <Route path='/admin/users/viewall' Component={ViewAllUsers}/>
-              <Route path= '/admin/product/update/:id' Component={UpdateProduct } />   
-              <Route path='/admin/product/deletebyqty' Component={DeleteProductsByQty}/> 
+            <Route exact path='/' element={
+              <>
+                <WelcomeHeader/>
+                <Welcome />
+              </>
+            }/>
+            <Route path='/logout' element={
+              <>
+              <WelcomeHeader/>
+              <Welcome />
+            </>
+            }/>
+            <Route path='/admin' element={
+              <>
+              <HeaderComponent/>
+              <Admin/>
+              </>
+            }/>
+              <Route path='/admin/user/add' element={
+              <>
+                <HeaderComponent/>
+                <AdminAddUser />
+              </>
+            }/>
+              <Route path='/admin/user/viewnewusers' element={
+              <>
+                <HeaderComponent/>
+                <ViewNewUsers />
+              </>} />
+              <Route path='/admin/product/add'  element={
+              <>
+                <HeaderComponent/>
+                <AddProduct />
+              </>
+            }/>
+              <Route path='/admin/product/viewall' element={
+              <>
+                <HeaderComponent/>
+                <ViewAdminProducts />
+              </>
+            }/>
+              <Route path='/admin/countordersby' element={
+              <>
+                <HeaderComponent/>
+                <ViewOrderBtwdates />
+              </>
+            }/>
+              <Route path='/admin/users/viewall' element={
+              <>
+                <HeaderComponent/>
+                <ViewAllUsers />
+              </>
+            }/>
+              <Route path= '/admin/product/update/:id' element={
+              <>
+                <HeaderComponent/>
+                <UpdateProduct />
+              </>
+            }/>   
+              <Route path='/admin/product/deletebyqty' element={
+              <>
+                <HeaderComponent/>
+                <DeleteProductsByQty />
+              </>
+            }/>
+            <Route path='/admin/user/orders/:id' element={
+                <>
+                  <HeaderComponent/>
+                  <ViewOrders/>
+                </>
+              }/>
+              <Route path='/admin/user/orders/updatestatus' element={
+                <>
+                  <HeaderComponent/>
+                  <UpdateOrderStatus/>
+                </>
+              }/>
 
 
-              <Route path='/user/:id' Component={UpdateUser}/>   
-              <Route path='/user/viewproducts/:id' Component={ViewUserProducts} />
-              <Route path='/user/viewcart/:id' Component={ViewCart}/>
-              <Route path='/user/updatecartitem/:cid' Component={UpdateItem}/>
+
+
+              <Route path='/user/:id' element={
+                <>
+                  <UserHeaderComponent/>
+                  <User/>
+                </>
+              }/>
+              <Route path='/user/updateprofile/:id' element={
+                <>
+                <UserHeaderComponent/>
+                <UpdateUser/>
+                </>
+              } /> 
+              <Route path='/user/viewproducts/:id' element={
+                <>  
+                  <UserHeaderComponent/>
+                  <ViewUserProducts/>
+                </>
+              } />
+              <Route path='/user/viewcart/:id' element={
+                <>
+                  <UserHeaderComponent/>
+                  <ViewCart/>
+                </>
+              }/>
+              <Route path='/user/updatecartitem/:cid' element={
+                <>
+                  <UserHeaderComponent/>
+                  <UpdateItem/>
+                </>
+              }/>
+              <Route path='/user/orders/:id' element={
+                <>
+                  <UserHeaderComponent/>
+                  <UserOrders/>
+                </>
+              }/>
+              
           </Routes>
-        </div>
       </Router>
+      </div>
   )
 }
 

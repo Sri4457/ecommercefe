@@ -27,7 +27,7 @@ export default function DeleteProductsByQty() {
         })
     }
   return (
-    <div>
+    <div className='container'>
         <div className='container'>
             <div className='row'>
                 <div className='card col-md-6 offset-md-3 offset-md-3'>

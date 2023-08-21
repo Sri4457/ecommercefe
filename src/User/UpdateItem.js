@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import CommonService from '../Service/CommonService';
 import { useParams } from 'react-router-dom';
 import UserService from '../Service/UserService';
 
@@ -61,7 +60,7 @@ export default function UpdateItem() {
         })
     }
   return (
-    <div>
+    <div className='container'>
         <div className='container'>
             <div className='row'>
                 <div className='card col-md-6 offset-md-3 offset-md-3'>

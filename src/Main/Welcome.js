@@ -33,17 +33,19 @@ export default class Welcome extends Component {
     
     CommonService.login(users).then((res)=>
     {
-      if(res.data===null)
+      if(res.data.error)
         {
+          window.alert(res.data.msg);
           this.navigateToPage("/");
         }
         else if(res.data.id===1){
+          window.confirm(res.data.msg);
           this.navigateToPage("/admin");
         }
         else
         {
-          console.log(res.data.id);
-          this.navigateToPage(`/user/${res.data.id}`);
+          window.confirm(res.data.msg);
+          this.navigateToPage(`/user/updateprofile/${res.data.id}`);
         }
     });
   }
@@ -51,6 +53,12 @@ export default class Welcome extends Component {
   {
     
     return (
+      
+      <div className='container '>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
       <div className='container'>
         <form className='container' >
           <div className="form-group">
@@ -65,6 +73,7 @@ export default class Welcome extends Component {
           <br></br>
           <center><button type="submit" onClick={this.login} className="btn btn-primary">Submit</button></center>
       </form>
+    </div>
     </div>
     );
   }

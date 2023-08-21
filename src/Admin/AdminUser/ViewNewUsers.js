@@ -19,7 +19,7 @@ export default class ViewNewUsers extends Component {
         }
   render() {
     return (
-        <div >
+        <div className='container'>
         <h2 className='text-center'>Users List</h2>
         <div className='row'>
             <table className='table table-striped table-bordered'>

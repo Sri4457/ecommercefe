@@ -23,7 +23,7 @@ export default class ViewAllUsers extends Component {
                 window.alert(res.data.msg);
             }
             else{
-                const result=window.confirm(res.data.msg);
+                window.confirm(res.data.msg);
                 
             }
             window.location.href = '/admin/users/viewall';
@@ -36,7 +36,7 @@ export default class ViewAllUsers extends Component {
                 window.alert(res.data.msg);
             }
             else{
-                const result=window.confirm(res.data.msg);
+                window.confirm(res.data.msg);
                 
             }
             window.location.href = '/admin/users/viewall';
@@ -49,15 +49,19 @@ export default class ViewAllUsers extends Component {
                 window.alert(res.data.msg);
             }
             else{
-                const result=window.confirm(res.data.msg);
+                window.confirm(res.data.msg);
             }
             window.location.href = '/admin/users/viewall';
         })
     }
 
+    vieworders=(id)=>{
+        window.location.href=`/admin/user/orders/${id}`;
+    }
+
   render() {
     return (
-      <div >
+      <div className='container'>
         <h2 className='text-center'>Users List</h2>
         <div className='row'>
             <table className='table table-striped table-bordered'>
@@ -79,6 +83,8 @@ export default class ViewAllUsers extends Component {
                                 <td>{user.userstatus}</td>
                                 <td>{user.userstatus==='blocked' ? <button type="button" onClick={()=>this.unblockUser(user.id)} class="btn btn-success">UnBlock</button> : <button type="button" onClick={()=>this.blockUser(user.id)} class="btn btn-success">Block</button> }
                                 &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onClick={()=> this.deleteuser(user.id)} class="btn btn-danger">Delete</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onClick={()=> this.vieworders(user.id)} class="btn btn-danger">View Orders</button>
+                            
                                 </td>
                             </tr>
                         )

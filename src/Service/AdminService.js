@@ -11,7 +11,11 @@ const release_user="http://localhost:8080/admin/user/release"
 const delete_ptoduct="http://localhost:8080/admin/product/delete"
 const get_product_by_id="http://localhost:8080/admin/product/findbyid"
 const update_product="http://localhost:8080/admin/product/update"
-const delete_product_by_qty="http://localhost:8080/admin/product/deletebyqty/"
+const delete_product_by_qty="http://localhost:8080/admin/product/deletebyqty"
+const get_orders_by_uid="http://localhost:8080/admin/user/viewordersbyuid"
+const update_status_of_order="http://localhost:8080/admin/orders/updateorder"
+
+
 class AdminService{
 
     getUser(){
@@ -70,6 +74,16 @@ class AdminService{
     deleteProductByQty(qty)
     {
         return axios.delete(delete_product_by_qty+"/"+qty);
+    }
+
+    getOrdersByUid(id)
+    {
+        return axios.get(get_orders_by_uid+"/"+id);
+    }
+
+    updateOrderStatus(id,or)
+    {
+        return axios.put(update_status_of_order+"/"+id,or);
     }
 
 }

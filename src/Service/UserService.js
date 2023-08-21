@@ -7,6 +7,8 @@ const get_cart_by_userid="http://localhost:8080/user/getcartbyuname";
 const delete_item_in_cart="http://localhost:8080/user/deleteitem"
 const get_cart_by_id="http://localhost:8080/user/getcartbyCartid"
 const update_cart="http://localhost:8080/user/updatecart"
+const submit_cart="http://localhost:8080/user/submitcart"
+const get_user_orders="http://localhost:8080/user/orders/vieworders"
 
 class UserService{
     getUserById(id)
@@ -45,5 +47,14 @@ class UserService{
         return axios.delete(delete_item_in_cart+"/"+id);
     }
 
+    submitcart(carts)
+    {
+        return axios.post(submit_cart,carts)
+    }
+
+    getOrdersByUId(id)
+    {
+        return axios.get(get_user_orders+"/"+id);
+    }
 }
 export default new UserService();
