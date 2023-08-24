@@ -6,8 +6,7 @@ export default function ViewCart() {
 
     const id=parseInt(useParams().id);
     const [carts,setCarts]=useState([]);
-    const [msgs,setMsgs]=useState([]);
-    const [msg,setMsg]=useState('');
+    
 
     useEffect(()=>{
         UserService.getCartByUId(id).then((res)=>
@@ -36,17 +35,20 @@ export default function ViewCart() {
 
    const submitcart = ()=>{
     UserService.submitcart(carts).then((res)=>{
-        setMsgs(res.data);
-        msgs.map(
-            m=>setMsg(msg+m)
-        )
-        window.confirm(msg);
-        navigateToPage(`/user/orders/${id}`);
+        if(res.data.error)
+        {
+            window.alert(res.data.msg);
+            navigateToPage(`/user/viewcart/${id}`);
+        }
+        else{
+            window.confirm(res.data.msg);
+            navigateToPage(`/user/orders/${id}`);
+        }
     })
    }
 
    const updatecart = (cid) =>{
-    navigateToPage(`/user/updatecartitem/${cid}`);
+    navigateToPage(`/user/updatecartitem/${id}/${cid}`);
    }
 
   return (

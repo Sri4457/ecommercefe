@@ -43,6 +43,10 @@ export default class AddProduct extends Component {
         console.log(products.name);
         AdminService.saveProduct(products).then((res)=>
         {
+            if(res.data.error)
+            window.alert(res.data.msg);
+            else
+            window.confirm(res.data.msg);
             this.navigateToPage('/admin/product/viewall');
         });
     }
@@ -55,7 +59,7 @@ export default class AddProduct extends Component {
                     <h3 className='text-center'>Add Product</h3>
                     <div className='card-body'>
                         <form>
-                        <div className='form-group'>
+                            <div className='form-group'>
                                 <label>Product Category :</label>
                                 <input type="text" placeholder='Enter Product Category' name='category' value={this.state.category} onChange={this.changeCategory} className='form-control'/>
                             </div>

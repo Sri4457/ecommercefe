@@ -5,11 +5,12 @@ import UserService from '../Service/UserService';
 export default function UpdateItem() {
 
     const cartid=parseInt(useParams().cid);
+    const userid=parseInt(useParams().id);
     const [prodname,setProdName]=useState('');
     const [prodcat,setProdCat]=useState('');
     const [price,setPrice]=useState(0);
     const [qty,setQty]=useState(0);
-    const [userid,setUserId]=useState(0);
+    
    
     const navigateToPage =(url)=>{
         window.location.href=url;
@@ -24,7 +25,6 @@ export default function UpdateItem() {
             setProdCat(res.data.productcat);
             setPrice(res.data.price);
             setQty(res.data.qty);
-            setUserId(res.data.userid);
         })
     },[]);
 
@@ -36,7 +36,7 @@ export default function UpdateItem() {
             if(res.data.error)
             {
                 window.alert(res.data.msg);
-                navigateToPage(`/user/updatecartitem/${cartid}`);
+                navigateToPage(`/user/updatecartitem/${userid}/${cartid}`);
             }
             else{
                 window.confirm(res.data.msg);

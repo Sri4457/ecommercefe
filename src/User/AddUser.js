@@ -11,7 +11,9 @@ export default class AddUser extends Component {
         username:'',
         password:'',
         email:'',
-        userstatus: 'blocked'
+        userstatus: 'blocked',
+        emailmsg:'',
+        passmsg:''
     }
 
     this.changeEmail=this.changeEmail.bind(this);
@@ -28,13 +30,74 @@ export default class AddUser extends Component {
     this.setState({username: event.target.value});
   }
   changeEmail= (event) =>
-  {
-    this.setState({email: event.target.value});
-  }
-  changePassword =(event) =>
-  {
-    this.setState({password: event.target.value});
-  }
+    {
+      let em=event.target.value;
+      if(em.length<10 || em.length>50)
+      {
+        this.setState({ emailmsg:'Provide a email with valid length'});
+      }
+      else
+      {
+        if(em.search("@")>=0)
+        {
+          let index=em.lastIndexOf("@");
+          let index1=em.lastIndexOf(".");
+          if(em.substring(index+1,index1)==='gmail' || em.substring(index+1,index1)==='yahoo')
+          {
+            if(em.substring(index1+1)==="com" || em.substring(index1+1)==="in")
+            {
+              this.setState({email: em});
+              this.setState({emailmsg: ''});
+            }
+            else{
+              this.setState({ emailmsg: "Enter Email that ends with com or in"});
+            }
+          }
+          else{
+            this.setState({ emailmsg: "Enter Email should be of gmail or yahoo"});
+          }
+        }
+        else{
+          this.setState({emailmsg:'The email should contain @'});
+        }
+      }
+    }
+    changePassword =(event) =>
+    {
+      let pass=event.target.value;
+      //console.log(pass.length);
+      if(pass.length<8 || pass.length>15)
+      {
+        this.setState({passmsg: 'Please Enter Valid Length'});
+      }
+      else
+      {
+        let ucount=0,lcount=0,dcount=0,scount=0,ocount=0;
+        for(let i=0;i<pass.length;i++)
+        {
+          //console.log(i);
+          if(pass.charAt(i)>='a' && pass.charAt(i)<='z')
+          lcount++;
+          else if(pass.charAt(i)>='A' && pass.charAt(i)<='Z')
+          ucount++;
+          else if(pass.charAt(i)>='0' && pass.charAt(i)<='9')
+          dcount++;
+          else if(pass.charAt(i)==='@' || pass.charAt(i)==='#')
+          scount++;
+          else
+          ocount++;
+        }
+        // console.log(ucount);
+        if(lcount>=1 && ucount>=1 && dcount>=1 && scount>=1 && ocount===0)
+        {
+          this.setState({password: pass});
+          this.setState({passmsg: ''});
+        }
+        else{
+          this.setState({passmsg: 'The Password should contain atleast one upperletter, one lower letter, one digit, one special character that accepts only @, #'});
+        }
+      }
+    }
 
   adduser = (e) => {
    
@@ -60,13 +123,13 @@ export default class AddUser extends Component {
                             </div>
                             <div className='form-group'>
                                 <label>Email :</label>
-                                <input type="email" placeholder='Enter Email' name='email' value={this.state.email} onChange={this.changeEmail} className='form-control'/>
+                                <input type="email" placeholder='Enter Email' name='email'  onChange={this.changeEmail} className='form-control'/>
                             </div>
                             <div className='form-group'>
                                 <label> Password :</label>
-                                <input type="password" placeholder='Enter Password' name='password' value={this.state.password} onChange={this.changePassword} className='form-control'/>
+                                <input type="password" placeholder='Enter Password' name='password' onChange={this.changePassword} className='form-control'/>
                             </div>
-                            <button type="button" onClick={this.adduser} class="btn btn-success">Add</button>
+                            <button type="button" onClick={this.adduser} class="btn btn-success">Register</button>
                         </form>
                     </div>
                 </div>

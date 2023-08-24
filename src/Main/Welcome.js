@@ -60,6 +60,7 @@ export default class Welcome extends Component {
         <br></br>
         <br></br>
       <div className='container'>
+        
         <form className='container' >
           <div className="form-group">
             <label>Username</label>
@@ -71,7 +72,10 @@ export default class Welcome extends Component {
             <input type="password" className="form-control" id="password" placeholder="Enter Password"onChange={this.changePassword}/>
           </div>
           <br></br>
-          <center><button type="submit" onClick={this.login} className="btn btn-primary">Submit</button></center>
+          <div className='row'>
+            <button type="submit" onClick={this.login} className=" col-md-3 btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button className="col-md-3 btn btn-danger"> Register</button>
+          </div>
       </form>
     </div>
     </div>

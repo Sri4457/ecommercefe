@@ -136,7 +136,7 @@ function App() {
                   <ViewCart/>
                 </>
               }/>
-              <Route path='/user/updatecartitem/:cid' element={
+              <Route path='/user/updatecartitem/:id/:cid' element={
                 <>
                   <UserHeaderComponent/>
                   <UpdateItem/>
