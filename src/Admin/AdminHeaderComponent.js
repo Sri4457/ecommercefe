@@ -13,7 +13,6 @@ export default class HeaderComponent extends Component {
             <NavDropdown title="User Operations" id="basic-nav-dropdown">
             <NavDropdown.Item href="/admin/user/add">Add user</NavDropdown.Item>
               <NavDropdown.Item href="/admin/users/viewall">View All Users</NavDropdown.Item>
-              <NavDropdown.Item href="/admin/user/viewnewusers">View Blocked/New Users</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Product Operations" id="basic-nav-dropdown">
               <NavDropdown.Item href="/admin/product/add">Add Product</NavDropdown.Item>

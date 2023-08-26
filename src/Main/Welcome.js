@@ -40,6 +40,7 @@ export default class Welcome extends Component {
         }
         else if(res.data.id===1){
           window.confirm(res.data.msg);
+
           this.navigateToPage("/admin");
         }
         else
@@ -48,6 +49,11 @@ export default class Welcome extends Component {
           this.navigateToPage(`/user/updateprofile/${res.data.id}`);
         }
     });
+  }
+
+  register =(e) =>{
+    e.preventDefault();
+    this.navigateToPage("/user/add");
   }
   render()
   {
@@ -74,7 +80,7 @@ export default class Welcome extends Component {
           <br></br>
           <div className='row'>
             <button type="submit" onClick={this.login} className=" col-md-3 btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button className="col-md-3 btn btn-danger"> Register</button>
+            <button className="col-md-3 btn btn-danger" onClick={this.register}> Register</button>
           </div>
       </form>
     </div>

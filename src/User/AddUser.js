@@ -1,40 +1,27 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import AdminService from '../Service/AdminService';
 
-export default class AddUser extends Component {
-  constructor(props)
-  {
-    
-    super(props);
+export default function AddUser () {
+  const [username,setUsername]=useState('');
+  const [password,setPassword]=useState('');
+  const [email,setEmail] = useState('');
+  const userstatus='blocked';
+  const [passmsg,setPassMsg]=useState('');
+  const [emailmsg,setEmailMsg]=useState('');
 
-    this.state={
-        username:'',
-        password:'',
-        email:'',
-        userstatus: 'blocked',
-        emailmsg:'',
-        passmsg:''
-    }
-
-    this.changeEmail=this.changeEmail.bind(this);
-    this.changePassword=this.changePassword.bind(this);
-    this.changeUserName=this.changeUserName.bind(this);
-    this.adduser=this.adduser.bind(this);
-  }
-   
-  navigateToPage = (url) => {
+  const navigateToPage = (url) => {
     window.location.href = url;
   }
-  changeUserName= (event) =>
-  {
-    this.setState({username: event.target.value});
-  }
-  changeEmail= (event) =>
+  const changeUserName= (event) =>
+    {
+      setUsername(event.target.value);
+    }
+  const changeEmail= (event) =>
     {
       let em=event.target.value;
       if(em.length<10 || em.length>50)
       {
-        this.setState({ emailmsg:'Provide a email with valid length'});
+        setEmailMsg('Provide a email with valid length');
       }
       else
       {
@@ -46,29 +33,29 @@ export default class AddUser extends Component {
           {
             if(em.substring(index1+1)==="com" || em.substring(index1+1)==="in")
             {
-              this.setState({email: em});
-              this.setState({emailmsg: ''});
+              setEmail(em);
+              setEmailMsg('');
             }
             else{
-              this.setState({ emailmsg: "Enter Email that ends with com or in"});
+              setEmailMsg("Enter Email that ends with com or in");
             }
           }
           else{
-            this.setState({ emailmsg: "Enter Email should be of gmail or yahoo"});
+            setEmailMsg("Enter Email should be of gmail or yahoo");
           }
         }
         else{
-          this.setState({emailmsg:'The email should contain @'});
+          setEmailMsg('The email should contain @');
         }
       }
     }
-    changePassword =(event) =>
+    const changePassword =(event) =>
     {
       let pass=event.target.value;
       //console.log(pass.length);
       if(pass.length<8 || pass.length>15)
       {
-        this.setState({passmsg: 'Please Enter Valid Length'});
+        setPassMsg('Please Enter Valid Length');
       }
       else
       {
@@ -90,52 +77,59 @@ export default class AddUser extends Component {
         // console.log(ucount);
         if(lcount>=1 && ucount>=1 && dcount>=1 && scount>=1 && ocount===0)
         {
-          this.setState({password: pass});
-          this.setState({passmsg: ''});
+          setPassword(pass);
+          setPassMsg('');
         }
         else{
-          this.setState({passmsg: 'The Password should contain atleast one upperletter, one lower letter, one digit, one special character that accepts only @, #'});
+          setPassMsg('The Password should contain atleast one upperletter, one lower letter, one digit, one special character that accepts only @, #');
         }
       }
     }
-
-  adduser = (e) => {
-   
-    e.preventDefault();
-    let users={username: this.state.username, password: this.state.password, email: this.state.email, userstatus: this.state.userstatus};
-    
-    AdminService.saveUser(users).then((res)=>{
-      this.navigateToPage('/');
-    });
-  }
-    render() {
-    return (
+  
+   const adduser = (e) => {
+      let users={username: username, password: password, email: email, userstatus: userstatus};
+      AdminService.saveUser(users).then((res)=>{
+        if(res.data.error)
+        {
+            window.alert(res.data.msg);
+            navigateToPage('/user/add');
+        }
+        else{
+            window.confirm(res.data.msg);
+            navigateToPage('/');
+        }
+      });
+    }
+  return (
+    <div>
       <div className='container'>
-        <div className='container'>
-            <div className='row'>
-                <div className='card col-md-6 offset-md-3 offset-md-3'>
-                    <h3 className='text-center'>Add User</h3>
-                    <div className='card-body'>
-                        <form>
-                            <div className='form-group'>
-                                <label>UserName :</label>
-                                <input type="text" placeholder='Enter UserName' name='username' value={this.state.username} onChange={this.changeUserName} className='form-control'/>
-                            </div>
-                            <div className='form-group'>
-                                <label>Email :</label>
-                                <input type="email" placeholder='Enter Email' name='email'  onChange={this.changeEmail} className='form-control'/>
-                            </div>
-                            <div className='form-group'>
-                                <label> Password :</label>
-                                <input type="password" placeholder='Enter Password' name='password' onChange={this.changePassword} className='form-control'/>
-                            </div>
-                            <button type="button" onClick={this.adduser} class="btn btn-success">Register</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+          <div className='container'>
+              <div className='row'>
+                  <div className='card col-md-6 offset-md-3 offset-md-3'>
+                      <h3 className='text-center'>Add User</h3>
+                      <div className='card-body'>
+                          <form>
+                              <div className='form-group'>
+                                  <label>UserName :</label>
+                                  <input type="text" placeholder='Enter UserName' name='username' value={username} onChange={changeUserName} className='form-control' required/>
+                              </div>
+                              <div className='form-group'>
+                                  <label>Email :</label>
+                                  <input type="email" placeholder='Enter Email' name='email' onChange={changeEmail} className='form-control' required/>
+                                  <p>{emailmsg}</p>
+                              </div>
+                              <div className='form-group'>
+                                  <label> Password :</label>
+                                  <input type="password" placeholder='Enter Password' name='password'  onChange={changePassword} className='form-control' required/>
+                                  <p>{passmsg}</p> 
+                             </div>
+                              <button type="button" onClick={adduser} class="btn btn-success">Add</button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
         </div>
-      </div>
-    )
-  }
+    </div>
+  )
 }
