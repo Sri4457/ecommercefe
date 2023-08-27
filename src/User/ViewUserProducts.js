@@ -87,6 +87,7 @@ export default function ViewProducts() {
         </div>
         <br></br>
         <div className='row'>
+            {products.length> 0 ? (
             <table className='table table-striped table-bordered'>
                 <thead>
                     <tr>
@@ -117,6 +118,12 @@ export default function ViewProducts() {
                     }
                 </tbody>
             </table>
+            ) : (
+                <center>
+                    <br></br>
+                    <h4>No Products</h4>
+                </center>
+            )}
         </div>
       </div>
       </div>

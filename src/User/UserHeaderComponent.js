@@ -15,6 +15,7 @@ export default function UserHeaderComponent() {
             <Nav.Link href={`/user/updateprofile/${id}`}>Update Profile</Nav.Link>
             <Nav.Link href={`/user/viewproducts/${id}`}>View Products</Nav.Link>
             <Nav.Link href={`/user/viewcart/${id}`}>View Cart</Nav.Link>
+            <Nav.Link href={`/user/vieworders/${id}`}>View Orders</Nav.Link>
             <Nav.Link href='/'>LogOut</Nav.Link>
           </Nav>
         </Navbar.Collapse>

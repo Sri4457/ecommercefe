@@ -1,6 +1,5 @@
 import React from 'react'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-
 import Welcome from '../Main/Welcome';
 import AddProduct from '../Admin/AdminProduct/AddProduct';
 import ViewOrderBtwdates from'../Admin/ViewOrdersBtwDates';
@@ -16,12 +15,12 @@ import WelcomeHeader from '../common/WelcomeHeader';
 import AdminAddUser from '../Admin/AdminUser/AdminAddUser';
 import Admin from '../Admin/Admin';
 import UserHeaderComponent from '../User/UserHeaderComponent';
-import User from '../User/User';
 import UserOrders from '../User/UserOrders';
 import ViewOrders from '../Admin/ViewOrders';
 import UpdateOrderStatus from '../Admin/UpdateOrderStatus';
 import AddUser from '../User/AddUser';
 import ViewProductsAdmin from '../Admin/AdminProduct/ViewProductsAdmin'
+import SendPassword from '../User/SendPassword';
 
 export default function RoutingComponent() {
   return (
@@ -107,11 +106,17 @@ export default function RoutingComponent() {
                 </>
               }/>
 
+              <Route path='/user/forgetpassword' element={
+                <>
+                  <WelcomeHeader/>
+                  <SendPassword/>
+                </>
+              }/>
 
               <Route path='/user/:id' element={
                 <>
                   <UserHeaderComponent/>
-                  <User/>
+                  <UpdateUser/>
                 </>
               }/>
               <Route path='/user/updateprofile/:id' element={
@@ -138,7 +143,7 @@ export default function RoutingComponent() {
                   <UpdateItem/>
                 </>
               }/>
-              <Route path='/user/orders/:id' element={
+              <Route path='/user/vieworders/:id' element={
                 <>
                   <UserHeaderComponent/>
                   <UserOrders/>

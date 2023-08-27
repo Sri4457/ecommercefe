@@ -14,6 +14,7 @@ export default function UserOrders() {
   return (
     <div className='container'>
         <h2 className='text-center'>Orders List</h2>
+        { orders.length>0 ? (
         <div className='row'>
             <table className='table table-striped table-bordered'>
                 <thead>
@@ -31,20 +32,26 @@ export default function UserOrders() {
                         orders.map(
                             cart =>
                             <tr key={cart.id}>
-                                <td>{cart.pname}</td>
                                 <td>{cart.category}</td>
+                                <td>{cart.pname}</td>
                                 <td>{cart.pcost}</td>
-                                <td>{cart.qty}</td>
-                                <td>{cart.totalcost}</td>
+                                <td>{cart.quantity}</td>
+                                <td>{cart.cost}</td>
                                 <td>
-                                    {cart.status}
+                                    {cart.order_status}
                                 </td>
                             </tr>
                         )
                     }
                 </tbody>
             </table>
-        </div>
+            </div>
+            ) : (
+                <center>
+                    <br></br>
+                    <h4>No Orders</h4>
+                </center>  
+            )}
       </div>
   )
 }

@@ -27,6 +27,7 @@ export default function ViewOrders() {
     <div className='container'>
         <h2 className='text-center'>Orders List</h2>
         <div className='row'>
+            {orders.length>0 ? (
             <table className='table table-striped table-bordered'>
                 <thead>
                     <tr>
@@ -60,6 +61,12 @@ export default function ViewOrders() {
                     }
                 </tbody>
             </table>
+            ): (
+                <center>
+                    <br></br>
+                    <h4>No Orders for this User</h4>
+                </center>
+            )}
         </div>
       </div>
   )

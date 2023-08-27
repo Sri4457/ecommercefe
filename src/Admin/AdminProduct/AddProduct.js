@@ -40,15 +40,41 @@ export default class AddProduct extends Component {
     {
         e.preventDefault();
         let products={name: this.state.name, category: this.state.category, price: parseInt(this.state.price,10),count : parseInt(this.state.count) };
-        console.log(products.name);
+        if(this.state.name.length===0)
+        {
+            window.alert('Name Should not be Empty');
+            this.navigateToPage('/admin/product/add');
+        }
+        else if(this.state.category.length===0)
+        {
+            window.alert('Category Should not be Empty');
+            this.navigateToPage('/admin/product/add');
+        }
+        else if(this.state.price.length===0)
+        {
+            window.alert('Price Should not be Empty');
+            this.navigateToPage('/admin/product/add');
+        }
+        else if(this.state.count.length===0)
+        {
+            window.alert('No of Items Count Should not be Empty');
+            this.navigateToPage('/admin/product/add');
+        }
+        else{
         AdminService.saveProduct(products).then((res)=>
         {
             if(res.data.error)
-            window.alert(res.data.msg);
+            {
+                window.alert(res.data.msg);
+                this.navigateToPage('/admin/product/add');
+            }
             else
-            window.confirm(res.data.msg);
-            this.navigateToPage('/admin/product/viewall');
+            {
+                window.confirm(res.data.msg);
+                this.navigateToPage('/admin/product/viewall');
+            }
         });
+    }
     }
   render() {
     

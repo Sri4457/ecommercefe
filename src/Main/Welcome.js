@@ -55,6 +55,10 @@ export default class Welcome extends Component {
     e.preventDefault();
     this.navigateToPage("/user/add");
   }
+  forgetpassword = (e) =>{
+    e.preventDefault();
+    this.navigateToPage("/user/forgetpassword");
+  }
   render()
   {
     
@@ -66,8 +70,14 @@ export default class Welcome extends Component {
         <br></br>
         <br></br>
       <div className='container'>
-        
-        <form className='container' >
+      <div className=' d-flex justify-content-end'>
+        <div>
+        <button onClick={this.register} className='btn btn-danger'>Register</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button onClick={this.forgetpassword} className='btn btn-warning'>Forget Password</button>
+        </div>
+      </div>
+        <form className='container' onSubmit={this.login}>
           <div className="form-group">
             <label>Username</label>
             <input type="text" className="form-control" id="username"  placeholder="Enter Username" onChange={this.changeUsername}/>
@@ -79,10 +89,10 @@ export default class Welcome extends Component {
           </div>
           <br></br>
           <div className='row'>
-            <button type="submit" onClick={this.login} className=" col-md-3 btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button className="col-md-3 btn btn-danger" onClick={this.register}> Register</button>
+          <input type="submit" className=" col-md-3 btn btn-success"/>
           </div>
       </form>
+      
     </div>
     </div>
     );

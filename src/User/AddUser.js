@@ -88,6 +88,21 @@ export default function AddUser () {
   
    const adduser = (e) => {
       let users={username: username, password: password, email: email, userstatus: userstatus};
+      if(username.length === 0){
+        window.alert('User Name should not be empty');
+        navigateToPage('/user/add');
+      }
+      else if(password.length===0)
+      {
+        window.alert('password should not be empty');
+        navigateToPage('/user/add');
+      }
+      else if(email.length===0)
+      {
+        window.alert('Email should not be empty');
+        navigateToPage('/user/add');
+      }
+      else{
       AdminService.saveUser(users).then((res)=>{
         if(res.data.error)
         {
@@ -99,6 +114,7 @@ export default function AddUser () {
             navigateToPage('/');
         }
       });
+    }
     }
   return (
     <div>
@@ -123,7 +139,7 @@ export default function AddUser () {
                                   <input type="password" placeholder='Enter Password' name='password'  onChange={changePassword} className='form-control' required/>
                                   <p>{passmsg}</p> 
                              </div>
-                              <button type="button" onClick={adduser} class="btn btn-success">Add</button>
+                              <button type="button" onClick={adduser} class="btn btn-success">Register</button>
                           </form>
                       </div>
                   </div>

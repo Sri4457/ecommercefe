@@ -64,6 +64,7 @@ export default class ViewAllUsers extends Component {
       <div className='container'>
         <h2 className='text-center'>Users List</h2>
         <div className='row'>
+            {this.state.users.length>0 ? (
             <table className='table table-striped table-bordered'>
                 <thead>
                     <tr>
@@ -91,6 +92,12 @@ export default class ViewAllUsers extends Component {
                     }
                 </tbody>
             </table>
+            ):(
+                <center>
+                    <br></br>
+                    <h4>No Users</h4>
+                </center>
+            )}
         </div>
       </div>
     )

@@ -103,7 +103,21 @@ export default class AdminAddUser extends Component {
       e.preventDefault();
       
       let users={username: this.state.username, password: this.state.password, email: this.state.email, userstatus: this.state.userstatus};
-      
+      if(this.state.username.length === 0){
+        window.alert('User Name should not be empty');
+        this.navigateToPage('/admin/user/add');
+      }
+      else if(this.state.password.length===0)
+      {
+        window.alert('password should not be empty');
+        this.navigateToPage('/admin/user/add');
+      }
+      else if(this.state.email.length===0)
+      {
+        window.alert('Email should not be empty');
+        this.this.navigateToPage('/admin/user/add');
+      }
+      else{
       AdminService.saveUser(users).then((res)=>{
         if(res.data.error)
         {
@@ -115,6 +129,7 @@ export default class AdminAddUser extends Component {
             this.navigateToPage('/admin/users/viewall');
         }
       });
+    }
     }
       render() {
       return (
