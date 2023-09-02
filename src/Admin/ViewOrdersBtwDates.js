@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AdminService from '../Service/AdminService';
 import CommonService from '../Service/CommonService';
+import Admin from './Admin';
 
 export default class ViewOrders extends Component {
     constructor(props)
@@ -9,7 +10,7 @@ export default class ViewOrders extends Component {
         this.state={
             dateone:'',
             datetwo:'',
-            count:'',
+            orders:[],
             category:[],
             setCat:''
         }
@@ -18,12 +19,18 @@ export default class ViewOrders extends Component {
         this.getcount=this.getcount.bind(this);
         this.setSelectedCategory=this.setSelectedCategory.bind(this);
     }
-    
+    navigateToPage = (url)=>{
+        window.location.href=url;
+    }
     componentDidMount = (e)=>{
         
         CommonService.getAllCategories().then((res)=>{
             this.setState({ category: res.data});
 
+        })
+
+        AdminService.getAllOrders().then((res)=>{
+            this.setState({orders: res.data});
         })
     }
     changeFromDate = (event)=>{
@@ -38,15 +45,20 @@ export default class ViewOrders extends Component {
         let dateDto={dateone: this.state.dateone, datetwo: this.state.datetwo, category: this.state.setCat};
         AdminService.getCountBySpecificDate(dateDto).then((res)=>
         {
-            this.setState({count: res.data.msg});
+            this.setState({orders: res.data});
         });
     }
     setSelectedCategory=(e)=>{
         this.setState({setCat: e.target.value});
     }
+
+    updatestatus = (e)=>{
+        const orderitem = `id=${e.uid}&e=${encodeURIComponent(JSON.stringify(e))}`;
+        this.navigateToPage(`/admin/user/orders/updatestatusinreport?${orderitem}`);
+    }
   render() {
     return (
-        <div className='container'>
+        <div>
         <div className='container'>
             <div className='row'>
                 <div className='card col-md-6 offset-md-3 offset-md-3'>
@@ -76,14 +88,55 @@ export default class ViewOrders extends Component {
                             <br></br>
                             <button type="button" onClick={this.getcount} class="btn btn-success">Get Count</button>
                             <br></br>
-                            <div className='form-group'>
-                                <label>The Count :</label>
-                                <br>
-                                </br>
-                                <p>{this.state.count}</p>
-                            </div>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div className='row'>
+                <h2 className='text-center'>Orders List</h2>
+                <div className='row'>
+                    {this.state.orders.length>0 ? (
+                    <table className='table table-striped table-bordered'>
+                        <thead>
+                            <tr>
+                                <td>User Id</td>
+                                <td>Product Category</td>
+                                <td>Product Name</td>
+                                <td>Product Cost</td>
+                                <td>No of items</td>
+                                <td>Total Cost of product</td>
+                                <td>Status of order</td>
+                                <td>Actions</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                this.state.orders.map(
+                                    order=>
+                                    <tr key={order.id}>
+                                        <td>{order.uid}</td>
+                                        <td>{order.category}</td>
+                                        <td>{order.pname}</td>
+                                        <td>{order.pcost}</td>
+                                        <td>{order.quantity}</td>
+                                        <td>{order.cost}</td>
+                                        <td>
+                                            {order.order_status}
+                                        </td>
+                                        <td>
+                                            <button className='btn btn-warning' onClick={()=> this.updatestatus(order)} >Update Status</button>
+                                        </td>
+                                    </tr>
+                                )
+                            }
+                        </tbody>
+                    </table>
+                    ): (
+                        <center>
+                            <br></br>
+                            <h4>No Orders</h4>
+                        </center>
+                    )}
                 </div>
             </div>
         </div>

@@ -21,6 +21,7 @@ import UpdateOrderStatus from '../Admin/UpdateOrderStatus';
 import AddUser from '../User/AddUser';
 import ViewProductsAdmin from '../Admin/AdminProduct/ViewProductsAdmin'
 import SendPassword from '../User/SendPassword';
+import UpdateOrdersInReport from '../Admin/UpdateOrdersInReport';
 
 export default function RoutingComponent() {
   return (
@@ -98,6 +99,14 @@ export default function RoutingComponent() {
                   <UpdateOrderStatus/>
                 </>
               }/>
+
+              <Route path='/admin/user/orders/updatestatusinreport' element={
+                <>
+                  <HeaderComponent/>
+                  <UpdateOrdersInReport/>
+                </>
+              }
+              />
 
               <Route path='/user/add' element={
                 <>

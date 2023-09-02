@@ -14,7 +14,7 @@ const update_product="http://localhost:8080/admin/product/update"
 const delete_product_by_qty="http://localhost:8080/admin/product/deletebyqty"
 const get_orders_by_uid="http://localhost:8080/admin/user/viewordersbyuid"
 const update_status_of_order="http://localhost:8080/admin/orders/updateorder"
-
+const get_all_orders="http://localhost:8080/admin/viewallorders";
 
 class AdminService{
 
@@ -84,6 +84,10 @@ class AdminService{
     updateOrderStatus(id,or)
     {
         return axios.put(update_status_of_order+"/"+id,or);
+    }
+
+    getAllOrders(){
+        return axios.get(get_all_orders);
     }
 
 }
