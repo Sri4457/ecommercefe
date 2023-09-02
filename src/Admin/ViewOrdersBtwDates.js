@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import AdminService from '../Service/AdminService';
+import CommonService from '../Service/CommonService';
 
 export default class ViewOrders extends Component {
     constructor(props)
@@ -8,13 +9,23 @@ export default class ViewOrders extends Component {
         this.state={
             dateone:'',
             datetwo:'',
-            count:''
+            count:'',
+            category:[],
+            setCat:''
         }
         this.changeFromDate=this.changeFromDate.bind(this);
         this.changeTodate=this.changeTodate.bind(this);
         this.getcount=this.getcount.bind(this);
+        this.setSelectedCategory=this.setSelectedCategory.bind(this);
     }
     
+    componentDidMount = (e)=>{
+        
+        CommonService.getAllCategories().then((res)=>{
+            this.setState({ category: res.data});
+
+        })
+    }
     changeFromDate = (event)=>{
         this.setState({dateone: event.target.value});
     }
@@ -24,11 +35,14 @@ export default class ViewOrders extends Component {
     }
     getcount = (e)=>{
         e.preventDefault();
-        let dateDto={dateone: this.state.dateone, datetwo: this.state.datetwo};
+        let dateDto={dateone: this.state.dateone, datetwo: this.state.datetwo, category: this.state.setCat};
         AdminService.getCountBySpecificDate(dateDto).then((res)=>
         {
             this.setState({count: res.data.msg});
         });
+    }
+    setSelectedCategory=(e)=>{
+        this.setState({setCat: e.target.value});
     }
   render() {
     return (
@@ -48,6 +62,17 @@ export default class ViewOrders extends Component {
                                 <label>To date :</label>
                                 <input type="date" placeholder='Enter To Date' name='datetwo' value={this.state.datetwo} onChange={this.changeTodate} className='form-control'/>
                             </div>
+                            <br></br>
+                            <select value={this.state.setCat} onChange={this.setSelectedCategory} >
+                                <option value='select category'>Select Category</option>
+                                {
+                                    this.state.category.map(
+                                        cat =>
+                                        <option value={cat}>{cat}</option>
+                                    )
+                                }
+                            </select>
+                            <br></br>
                             <br></br>
                             <button type="button" onClick={this.getcount} class="btn btn-success">Get Count</button>
                             <br></br>

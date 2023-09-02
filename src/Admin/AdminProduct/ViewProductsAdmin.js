@@ -5,9 +5,12 @@ import CommonService from '../../Service/CommonService';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useEffect } from 'react';
+import './Products.css'
 
 export default function ViewProductsAdmin() {
     const [products,setProduct]=useState([]);
+    const [productscat, setProductCat]=useState([]);
+    const [selectedCategory,setCategory]=useState('');
     
     const navigateToPage = (url) => {
         window.location.href = url;
@@ -17,6 +20,11 @@ export default function ViewProductsAdmin() {
         CommonService.getAllProducts().then((res) =>{
             setProduct(res.data)
              });
+        
+        CommonService.getAllCategories().then((res)=>{
+            setProductCat(res.data);
+
+        })
     },[]);
 
     const deleteproduct = (id)=>{
@@ -39,32 +47,83 @@ export default function ViewProductsAdmin() {
     }
 
     const sortproducts =(e)=>{
-        CommonService.getProductsBySort(e).then((res)=>{
-            setProduct(res.data);
-        })
-    }
-
-    const searchproducts = (event) =>{
-        console.log(event.target.value);
-        if(event.target.value==='')
+        //console.log(selectedCategory);
+        if(selectedCategory==='select category' ||selectedCategory==='' )
         {
-            CommonService.getAllProducts().then((res) =>{
-                setProduct(res.data )
-            });
-        }
-        else{
-            CommonService.getProductBySearchName(event.target.value).then((res)=>{
+            CommonService.getProductsBySort(e).then((res)=>{
                 setProduct(res.data);
             })
         }
+        else{
+            CommonService.getProductsBySortByCategory(selectedCategory,e).then((res)=>{
+                setProduct(res.data);
+            })
+        }
+    }
+
+    const searchproducts = (event) =>{
+       // console.log(event.target.value);
+        if(event.target.value==='')
+        {
+            if(selectedCategory==='select category' ||selectedCategory==='' )
+            {
+                CommonService.getAllProducts().then((res) =>{
+                    setProduct(res.data )
+                });
+            }
+            else{
+                CommonService.getProductsByCategory(selectedCategory).then((res)=>{
+                    setProduct(res.data);
+                })
+            }
+        }
+        else
+        {
+            if(selectedCategory==='select category' ||selectedCategory==='' )
+            {
+                CommonService.getProductBySearchName(event.target.value).then((res) =>{
+                    setProduct(res.data )
+                });
+            }
+            else{
+                CommonService.getProductsByCategoryBySearchName(selectedCategory,event.target.value).then((res)=>{
+                    setProduct(res.data);
+                })
+            }
+        }
         
+    }
+    const setSelectedCategory= (e)=>{
+        setCategory(e.target.value);
+        if(e.target.value==='select category')
+        {
+            CommonService.getAllProducts().then((res)=>{
+                setProduct(res.data);
+            })
+        }
+        else{
+            CommonService.getProductsByCategory(e.target.value).then((res)=>{
+                setProduct(res.data);
+            })
+        }
     }
   return (
     <div>
         <div className='container'>
         <h2 className='text-center'>Products List</h2>
         <div className='row'>
-        <div className="col-md-9">
+        <div className='col-md-3'>
+            <select value={selectedCategory} onChange={setSelectedCategory} >
+                <option value='select category'>Select Category</option>
+                {
+                    productscat.map(
+                        product =>
+                        <option value={product}>{product}</option>
+                    )
+                }
+            </select>
+        </div>
+        <div className="col-md-6">
                 <DropdownButton id="dropdown-danger-button" title="Filter Products" className="d-flex justify-content-end">
                     <Dropdown.Item onClick={()=> sortproducts('name-asc')}>Sort By Name Asc</Dropdown.Item>
                     <Dropdown.Item onClick={()=> sortproducts('name-desc')}>Sort By Name Desc</Dropdown.Item>

@@ -14,7 +14,7 @@ export default function SendPassword() {
       setUname(event.target.value);
     }
   
-   const getpassword = (e) => {
+  const getpassword = (e) => {
     if(username.length ===0 )
     {
         window.alert("Please Fill Username field");
@@ -24,7 +24,7 @@ export default function SendPassword() {
       UserService.getPassword(username).then((res)=>{
         if(res.data.error)
         {
-            window.alert(res.data.msg);
+            alert(res.data.msg);
             navigateToPage('/user/forgetpassword');
         }
         else
@@ -49,7 +49,7 @@ export default function SendPassword() {
                                   <input type="text" placeholder='Enter UserName' name='username' value={username} onChange={changeUserName} className='form-control' required/>
                              
                               <br></br>
-                              <button type="button" onClick={getpassword} class="btn btn-success">Send Password</button>
+                              <button type="button" onClick={getpassword}  class="btn btn-success">Send Password</button>
                           </form>
                       </div>
                   </div>
