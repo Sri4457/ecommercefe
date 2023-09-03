@@ -123,7 +123,7 @@ export default function ViewProductsAdmin() {
                             <tr key={product.id}>
                                 <td>{product.category}</td>
                                 <td>{product.name}</td>
-                                <td>{product.price}</td>
+                                <td>$ {product.price}</td>
                                 <td>{product.count}</td>
                                 <td>{product.date}</td>
                                 <td><button type="button" onClick={()=> deleteproduct(product.id)} class="btn btn-danger" >Delete</button>

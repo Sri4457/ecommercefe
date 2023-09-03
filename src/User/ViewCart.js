@@ -20,8 +20,8 @@ export default function ViewCart() {
         window.location.href = url;
     }
 
-   const deleteProduct= (id) =>{
-    UserService.deleteItemInCart(id).then((res)=>{
+   const deleteProduct= (cid) =>{
+    UserService.deleteItemInCart(cid).then((res)=>{
         if(res.data.error)
         {
             window.alert(res.data.msg);

@@ -33,10 +33,10 @@ export default function UserOrders() {
                             cart =>
                             <tr key={cart.id}>
                                 <td>{cart.category}</td>
-                                <td>{cart.pname}</td>
+                                <td>$ {cart.pname}</td>
                                 <td>{cart.pcost}</td>
                                 <td>{cart.quantity}</td>
-                                <td>{cart.cost}</td>
+                                <td>$ {cart.cost}</td>
                                 <td>
                                     {cart.order_status}
                                 </td>

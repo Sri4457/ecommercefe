@@ -22,9 +22,11 @@ export default function ViewProducts() {
         
         CommonService.getAllProducts().then((res)=>{
             setProducts(res.data);
+            setChangedProd(res.data);
         })
         CommonService.getAllCategories().then((res)=>{
-            setProductCat(res.data);
+            setProductCat([...res.data].sort());
+           // setProductCat([...productscat].sort());
 
         })
     },[])
@@ -77,7 +79,7 @@ export default function ViewProducts() {
         <div className='row'>
         <div className='col-md-3'>
             <select value={selectedCategory} onChange={setSelectedCategory} >
-                <option value='select category'>Select Category</option>
+                <option value=''>Select Category</option>
                 {
                     productscat.map(
                         product =>
@@ -124,7 +126,7 @@ export default function ViewProducts() {
                             <tr key={product.id}>
                                 <td>{product.category}</td>
                                 <td>{product.name}</td>
-                                <td>{product.price}</td>
+                                <td>$ {product.price}</td>
                                 <td>{product.count}</td>
                                 <td>{product.date}</td>
                                 <td><input type="text" name={qty} onChange={changeQty} className='form-control'></input></td>
