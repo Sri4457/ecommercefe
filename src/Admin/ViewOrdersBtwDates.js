@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import AdminService from '../Service/AdminService';
 import CommonService from '../Service/CommonService';
-import Admin from './Admin';
 
 export default class ViewOrders extends Component {
     constructor(props)

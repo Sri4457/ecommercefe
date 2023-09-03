@@ -11,7 +11,7 @@ export default function ViewProducts() {
     const [qty,setQty]=useState(0);
     const [productscat, setProductCat]=useState([]);
     const [selectedCategory,setCategory]=useState('');
-    
+    const [changedProd,setChangedProd]=useState([]);
     
 
     const navigateToPage = (url) =>
@@ -34,7 +34,6 @@ export default function ViewProducts() {
     }
 
     const addCart = (e) =>{
-        
         let cart={userid: userid, productname: e.name,productcat: e.category,price: e.price, qty: qty};
         UserService.addToCart(cart).then((res)=>{
             console.log(res);
@@ -51,65 +50,25 @@ export default function ViewProducts() {
     }
 
     const sortproducts =(e)=>{
-        //console.log(selectedCategory);
-        if(selectedCategory==='select category' ||selectedCategory==='' )
+        if(selectedCategory==='' )
         {
             CommonService.getProductsBySort(e).then((res)=>{
-                setProducts(res.data);
+                setChangedProd(res.data);
             })
         }
         else{
             CommonService.getProductsBySortByCategory(selectedCategory,e).then((res)=>{
-                setProducts(res.data);
+                setChangedProd(res.data);
             })
         }
     }
 
     const searchproducts = (event) =>{
-       // console.log(event.target.value);
-        if(event.target.value==='')
-        {
-            if(selectedCategory==='select category' ||selectedCategory==='' )
-            {
-                CommonService.getAllProducts().then((res) =>{
-                    setProducts(res.data )
-                });
-            }
-            else{
-                CommonService.getProductsByCategory(selectedCategory).then((res)=>{
-                    setProducts(res.data);
-                })
-            }
-        }
-        else
-        {
-            if(selectedCategory==='select category' ||selectedCategory==='' )
-            {
-                CommonService.getProductBySearchName(event.target.value).then((res) =>{
-                    setProducts(res.data )
-                });
-            }
-            else{
-                CommonService.getProductsByCategoryBySearchName(selectedCategory,event.target.value).then((res)=>{
-                    setProducts(res.data);
-                })
-            }
-        }
-        
+        setChangedProd(products.filter(prod=> prod.name.includes(event.target.value) && prod.category.includes(selectedCategory)));
     }
     const setSelectedCategory= (e)=>{
         setCategory(e.target.value);
-        if(e.target.value==='select category')
-        {
-            CommonService.getAllProducts().then((res)=>{
-                setProducts(res.data);
-            })
-        }
-        else{
-            CommonService.getProductsByCategory(e.target.value).then((res)=>{
-                setProducts(res.data);
-            })
-        }
+        setChangedProd(products.filter(prod=> prod.category.includes(e.target.value)));
     }
   return (
     <div>
@@ -145,7 +104,7 @@ export default function ViewProducts() {
         </div>
         <br></br>
         <div className='row'>
-            {products.length> 0 ? (
+            {changedProd.length> 0 ? (
             <table className='table table-striped table-bordered'>
                 <thead>
                     <tr>
@@ -160,7 +119,7 @@ export default function ViewProducts() {
                 </thead>
                 <tbody>
                     {
-                        products.map(
+                        changedProd.map(
                             product =>
                             <tr key={product.id}>
                                 <td>{product.category}</td>

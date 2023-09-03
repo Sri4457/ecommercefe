@@ -10,6 +10,7 @@ import './Products.css'
 export default function ViewProductsAdmin() {
     const [products,setProduct]=useState([]);
     const [productscat, setProductCat]=useState([]);
+    const [changedProd,setChangedProd]=useState([]);
     const [selectedCategory,setCategory]=useState('');
     
     const navigateToPage = (url) => {
@@ -19,6 +20,7 @@ export default function ViewProductsAdmin() {
     {
         CommonService.getAllProducts().then((res) =>{
             setProduct(res.data)
+            setChangedProd(res.data)
              });
         
         CommonService.getAllCategories().then((res)=>{
@@ -47,65 +49,26 @@ export default function ViewProductsAdmin() {
     }
 
     const sortproducts =(e)=>{
-        //console.log(selectedCategory);
-        if(selectedCategory==='select category' ||selectedCategory==='' )
+        
+        if(selectedCategory==='' )
         {
             CommonService.getProductsBySort(e).then((res)=>{
-                setProduct(res.data);
+                setChangedProd(res.data);
             })
         }
         else{
             CommonService.getProductsBySortByCategory(selectedCategory,e).then((res)=>{
-                setProduct(res.data);
+                setChangedProd(res.data);
             })
         }
     }
 
     const searchproducts = (event) =>{
-       // console.log(event.target.value);
-        if(event.target.value==='')
-        {
-            if(selectedCategory==='select category' ||selectedCategory==='' )
-            {
-                CommonService.getAllProducts().then((res) =>{
-                    setProduct(res.data )
-                });
-            }
-            else{
-                CommonService.getProductsByCategory(selectedCategory).then((res)=>{
-                    setProduct(res.data);
-                })
-            }
-        }
-        else
-        {
-            if(selectedCategory==='select category' ||selectedCategory==='' )
-            {
-                CommonService.getProductBySearchName(event.target.value).then((res) =>{
-                    setProduct(res.data )
-                });
-            }
-            else{
-                CommonService.getProductsByCategoryBySearchName(selectedCategory,event.target.value).then((res)=>{
-                    setProduct(res.data);
-                })
-            }
-        }
-        
+        setChangedProd(products.filter(prod=> prod.name.includes(event.target.value) && prod.category.includes(selectedCategory)));
     }
     const setSelectedCategory= (e)=>{
         setCategory(e.target.value);
-        if(e.target.value==='select category')
-        {
-            CommonService.getAllProducts().then((res)=>{
-                setProduct(res.data);
-            })
-        }
-        else{
-            CommonService.getProductsByCategory(e.target.value).then((res)=>{
-                setProduct(res.data);
-            })
-        }
+        setChangedProd(products.filter(prod=> prod.category.includes(e.target.value)));
     }
   return (
     <div>
@@ -114,7 +77,7 @@ export default function ViewProductsAdmin() {
         <div className='row'>
         <div className='col-md-3'>
             <select value={selectedCategory} onChange={setSelectedCategory} >
-                <option value='select category'>Select Category</option>
+                <option value=''>Select Category</option>
                 {
                     productscat.map(
                         product =>
@@ -136,12 +99,12 @@ export default function ViewProductsAdmin() {
                 </DropdownButton>
             </div>
             <div className='col-md-3'>
-                <input className="form-control" type='text' name='searchname' placeholder='Enter Product name to search' onKeyUp={searchproducts}></input>
+                <input className="form-control" type='text' name='searchname' placeholder='Enter Product name to search'  onChange={searchproducts}></input>
             </div>
         </div>
         <br></br>
         <div className='row'>
-            {products.length>0 ? (
+            {changedProd.length>0 ? (
             <table className='table table-striped table-bordered'>
                 <thead>
                     <tr>
@@ -155,7 +118,7 @@ export default function ViewProductsAdmin() {
                 </thead>
                 <tbody>
                     {
-                        products.map(
+                        changedProd.map(
                             product =>
                             <tr key={product.id}>
                                 <td>{product.category}</td>
