@@ -40,7 +40,7 @@ export default function UpdateOrderStatus() {
         <div className='container'>
             <div className='row'>
                 <div className='card col-md-6 offset-md-3 offset-md-3'>
-                    <h3 className='text-center'>Update Cart Item</h3>
+                    <h3 className='text-center'>Update Order</h3>
                     <div className='card-body'>
                         <form>
                         <div className='form-group'>
@@ -76,6 +76,11 @@ export default function UpdateOrderStatus() {
                             <div className='form-group'>
                                 <label>Order Status:</label>
                                 <input type="text" placeholder='Order Status' name='status' value={status} onChange={changeStatus} className='form-control'/>
+                            </div>
+                            <br></br>
+                            <div className='form-group'>
+                                <label>Order Address:</label>
+                                <input type="text" placeholder='Order Address' name='address' value={orders.address} disabled className='form-control'/>
                             </div>
                             <br></br>
                             <button type="button" onClick={updateorderstatus} class="btn btn-warning">Update status</button>

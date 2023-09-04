@@ -40,7 +40,7 @@ export default function UpdateOrdersInReport() {
         <div className='container'>
             <div className='row'>
                 <div className='card col-md-6 offset-md-3 offset-md-3'>
-                    <h3 className='text-center'>Update Cart Item</h3>
+                    <h3 className='text-center'>Update Order</h3>
                     <div className='card-body'>
                         <form>
                         <div className='form-group'>
@@ -71,6 +71,12 @@ export default function UpdateOrdersInReport() {
                             <div className='form-group'>
                                 <label>Total cost for this Order:</label>
                                 <input type="text" placeholder='Total Cost' name='cost' value={orders.cost} disabled className='form-control'/>
+                            </div>
+                            <br></br>
+                            
+                            <div className='form-group'>
+                                <label>Order Address:</label>
+                                <input type="text" placeholder='Order Address' name='address' value={orders.address} disabled className='form-control'/>
                             </div>
                             <br></br>
                             <div className='form-group'>

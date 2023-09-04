@@ -105,6 +105,7 @@ export default class ViewOrders extends Component {
                                 <td>No of items</td>
                                 <td>Total Cost of product</td>
                                 <td>Status of order</td>
+                                <td>Address</td>
                                 <td>Actions</td>
                             </tr>
                         </thead>
@@ -121,6 +122,9 @@ export default class ViewOrders extends Component {
                                         <td>{order.cost}</td>
                                         <td>
                                             {order.order_status}
+                                        </td>
+                                        <td>
+                                            {order.address}
                                         </td>
                                         <td>
                                             <button className='btn btn-warning' onClick={()=> this.updatestatus(order)} >Update Status</button>

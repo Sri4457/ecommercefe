@@ -12,7 +12,8 @@ export default class AdminAddUser extends Component {
           email:'',
           userstatus: 'blocked',
           passmsg:'',
-          emailmsg:''
+          emailmsg:'',
+          address:[]
       }
   
       this.changeEmail=this.changeEmail.bind(this);
@@ -61,6 +62,9 @@ export default class AdminAddUser extends Component {
         }
       }
     }
+    changeAddress = (event)=>{
+      this.setState({address: event.target.value});
+    }
     changePassword =(event) =>
     {
       let pass=event.target.value;
@@ -102,7 +106,7 @@ export default class AdminAddUser extends Component {
      
       e.preventDefault();
       
-      let users={username: this.state.username, password: this.state.password, email: this.state.email, userstatus: this.state.userstatus};
+      let users={username: this.state.username, password: this.state.password, email: this.state.email, userstatus: this.state.userstatus,address: this.state.address};
       if(this.state.username.length === 0){
         window.alert('User Name should not be empty');
         this.navigateToPage('/admin/user/add');
@@ -149,6 +153,10 @@ export default class AdminAddUser extends Component {
                                   <input type="email" placeholder='Enter Email' name='email' onChange={this.changeEmail} className='form-control' required/>
                                   <p>{this.state.emailmsg}</p>
                               </div>
+                              <div className='form-group'>
+                                  <label> Address :</label>
+                                  <input type="text" placeholder='Enter Address' name='address'  onChange={this.changeAddress} className='form-control' required/>
+                             </div>
                               <div className='form-group'>
                                   <label> Password :</label>
                                   <input type="password" placeholder='Enter Password' name='password'  onChange={this.changePassword} className='form-control' required/>

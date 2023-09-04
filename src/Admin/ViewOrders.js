@@ -37,6 +37,7 @@ export default function ViewOrders() {
                         <td>No of items</td>
                         <td>Total Cost of product</td>
                         <td>Status of order</td>
+                        <td>Address</td>
                         <td>Actions</td>
                     </tr>
                 </thead>
@@ -53,6 +54,7 @@ export default function ViewOrders() {
                                 <td>
                                     {order.order_status}
                                 </td>
+                                <td>{order.address}</td>
                                 <td>
                                     <button className='btn btn-warning' onClick={()=> updatestatus(order)} >Update Status</button>
                                 </td>

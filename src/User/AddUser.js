@@ -8,6 +8,7 @@ export default function AddUser () {
   const userstatus='blocked';
   const [passmsg,setPassMsg]=useState('');
   const [emailmsg,setEmailMsg]=useState('');
+  const [address,setAddress]=useState([]);
 
   const navigateToPage = (url) => {
     window.location.href = url;
@@ -49,6 +50,10 @@ export default function AddUser () {
         }
       }
     }
+
+    const changeAddress=(event)=>{
+      setAddress(event.target.value);
+    }
     const changePassword =(event) =>
     {
       let pass=event.target.value;
@@ -87,7 +92,7 @@ export default function AddUser () {
     }
   
    const adduser = (e) => {
-      let users={username: username, password: password, email: email, userstatus: userstatus};
+      let users={username: username, password: password, email: email, userstatus: userstatus,address: address};
       if(username.length === 0){
         window.alert('User Name should not be empty');
         navigateToPage('/user/add');
@@ -134,6 +139,10 @@ export default function AddUser () {
                                   <input type="email" placeholder='Enter Email' name='email' onChange={changeEmail} className='form-control' required/>
                                   <p>{emailmsg}</p>
                               </div>
+                              <div className='form-group'>
+                                  <label> Address :</label>
+                                  <input type="password" placeholder='Enter Address' name='address'  onChange={changeAddress} className='form-control' required/>
+                             </div>
                               <div className='form-group'>
                                   <label> Password :</label>
                                   <input type="password" placeholder='Enter Password' name='password'  onChange={changePassword} className='form-control' required/>

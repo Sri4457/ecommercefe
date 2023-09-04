@@ -8,6 +8,9 @@ export default function UpdateUser() {
     const [email,setEmail]=useState('');
     const [userstatus,setStatus]=useState('');
     const [username,setId]=useState('');
+    // const [addAddressButton, setAddressButton]=useState(false);
+    const [address,setAddress]=useState('');
+    // const [newaddress,setNewAddress]=useState();
 
     useEffect(()=>{
       
@@ -16,6 +19,7 @@ export default function UpdateUser() {
         setEmail(res.data.email);
         setStatus(res.data.userstatus);
         setId(res.data.username);
+        setAddress(res.data.address);
       })
     },[])
     const navigateToPage  = (url)=>{
@@ -27,8 +31,28 @@ export default function UpdateUser() {
     const changePassword=(event)=>{
       setPword(event.target.value);
     }
+
+    // const changeAddressButton = ()=>{
+    //   setAddressButton(true);
+    // }
+
+    const changeAddress = (event)=>{
+      setAddress(event.target.value);
+      
+    }
+
+    // const changeNewAddress = (event)=>{
+    //   setNewAddress(event.target.value);
+      
+    // }
+    // const addAddress = ()=>{
+    //   address.push(newaddress);
+    //   setAddressButton(false);
+    //   window.location.reload();
+    // }
+
     const updateuser = (e)=>{
-      let user={id: id,username: username, password: password,email: email, userstatus: userstatus};
+      let user={id: id,username: username, password: password,email: email, userstatus: userstatus,address: address};
       UserService.updateUser(user).then((res)=>{
         if(res.data.error)
         {
@@ -64,9 +88,29 @@ export default function UpdateUser() {
                                 <input type="text" placeholder='Enter Password' name='password' value={password} onChange={changePassword} className='form-control'/>
                             </div>
                             <div className='form-group'>
+                                <label> Address :</label>
+                                {/* {
+                                  address.map(
+                                    (add,index)=>{ */}
+                                      <input type="text" name='address' value={address} onChange={changeAddress} className='form-control'/>
+                                    {/* }
+                                  )
+                                }   */}
+                            </div>
+                            {/* <button type='button' onClick={changeAddressButton}>Add Address</button>
+                            {
+                              addAddressButton &&
+                              <div className='form-group'>
+                                <label> New Address :</label>
+                                <input type="text" placeholder='Enter New Address' value={newaddress} onChange={changeNewAddress} className='form-control'/>
+                                <button type='button'onClick={addAddress} >Add</button>
+                              </div>
+                            } */}
+                            <div className='form-group'>
                                 <label> Status :</label>
                                 <input type="text" placeholder='Your Status' name='userstatus' value={userstatus} disabled className='form-control'/>
                             </div>
+                            <br></br>
                             <button type="button" onClick={updateuser} class="btn btn-success">Update</button>
                             
                         </form>
