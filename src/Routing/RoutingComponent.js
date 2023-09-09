@@ -87,7 +87,7 @@ export default function RoutingComponent() {
                 <DeleteProductsByQty />
               </>
             }/>
-            <Route path='/admin/user/orders/:id' element={
+            <Route path='/admin/user/orders/:username' element={
                 <>
                   <HeaderComponent/>
                   <ViewOrders/>
@@ -122,37 +122,37 @@ export default function RoutingComponent() {
                 </>
               }/>
 
-              <Route path='/user/:id' element={
+              <Route path='/user/:username' element={
                 <>
                   <UserHeaderComponent/>
                   <UpdateUser/>
                 </>
               }/>
-              <Route path='/user/updateprofile/:id' element={
+              <Route path='/user/updateprofile/:username' element={
                 <>
                 <UserHeaderComponent/>
                 <UpdateUser/>
                 </>
               } /> 
-              <Route path='/user/viewproducts/:id' element={
+              <Route path='/user/viewproducts/:username' element={
                 <>  
                   <UserHeaderComponent/>
                   <ViewUserProducts/>
                 </>
               } />
-              <Route path='/user/viewcart/:id' element={
+              <Route path='/user/viewcart/:username' element={
                 <>
                   <UserHeaderComponent/>
                   <ViewCart/>
                 </>
               }/>
-              <Route path='/user/updatecartitem/:id/:cid' element={
+              <Route path='/user/updatecartitem/:username/:cid' element={
                 <>
                   <UserHeaderComponent/>
                   <UpdateItem/>
                 </>
               }/>
-              <Route path='/user/vieworders/:id' element={
+              <Route path='/user/vieworders/:username' element={
                 <>
                   <UserHeaderComponent/>
                   <UserOrders/>

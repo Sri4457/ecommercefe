@@ -6,7 +6,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 export default function ViewProducts() {
-    const userid=parseInt(useParams().id);
+    const username=useParams().username;
     const [products,setProducts]=useState([]);
     const [qty,setQty]=useState(0);
     const [productscat, setProductCat]=useState([]);
@@ -36,17 +36,17 @@ export default function ViewProducts() {
     }
 
     const addCart = (e) =>{
-        let cart={userid: userid, productname: e.name,productcat: e.category,price: e.price, qty: qty};
+        let cart={username: username, productname: e.name,productcat: e.category,price: e.price, qty: qty};
         UserService.addToCart(cart).then((res)=>{
             console.log(res);
             if(res.data.error)
             {
                 window.alert(res.data.msg);
-                navigateToPage(`/user/viewproducts/${userid}`);
+                navigateToPage(`/user/viewproducts/${username}`);
             }
             else{
                 window.confirm(res.data.msg);
-                navigateToPage(`/user/viewcart/${userid}`);
+                navigateToPage(`/user/viewcart/${username}`);
             }
         })
     }
@@ -66,7 +66,7 @@ export default function ViewProducts() {
     }
 
     const searchproducts = (event) =>{
-        setChangedProd(products.filter(prod=> prod.name.includes(event.target.value) && prod.category.includes(selectedCategory)));
+        setChangedProd(changedProd.filter(prod=> prod.name.includes(event.target.value)));
     }
     const setSelectedCategory= (e)=>{
         setCategory(e.target.value);

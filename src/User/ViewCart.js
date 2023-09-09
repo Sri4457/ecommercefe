@@ -4,12 +4,12 @@ import { useParams } from 'react-router-dom';
 
 export default function ViewCart() {
 
-    const id=parseInt(useParams().id);
+    const username=useParams().username;
     const [carts,setCarts]=useState([]);
     
 
     useEffect(()=>{
-        UserService.getCartByUId(id).then((res)=>
+        UserService.getCartByUname(username).then((res)=>
         {
             setCarts(res.data);
         })
@@ -29,7 +29,7 @@ export default function ViewCart() {
         else{
             window.confirm(res.data.msg);
         }
-        navigateToPage(`/user/viewcart/${id}`);
+        navigateToPage(`/user/viewcart/${username}`);
     })
    }
 
@@ -38,17 +38,17 @@ export default function ViewCart() {
         if(res.data.error)
         {
             window.alert(res.data.msg);
-            navigateToPage(`/user/viewcart/${id}`);
+            navigateToPage(`/user/viewcart/${username}`);
         }
         else{
             window.confirm(res.data.msg);
-            navigateToPage(`/user/vieworders/${id}`);
+            navigateToPage(`/user/vieworders/${username}`);
         }
     })
    }
 
    const updatecart = (cid) =>{
-    navigateToPage(`/user/updatecartitem/${id}/${cid}`);
+    navigateToPage(`/user/updatecartitem/${username}/${cid}`);
    }
 
   return (

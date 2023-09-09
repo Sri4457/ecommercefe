@@ -6,7 +6,7 @@ export default function UpdateOrderStatus() {
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const id = queryParams.get('id');
+    const username = queryParams.get('username');
     const dataString = queryParams.get('e');
     const orders = JSON.parse(decodeURIComponent(dataString));
     const [status,setStatus]=useState('');
@@ -21,16 +21,17 @@ export default function UpdateOrderStatus() {
         window.location.href=url;
     }
     const updateorderstatus = e =>{
-        let updateorder={id: orders.id, pname: orders.pname, category: orders.category,status: status};
-        AdminService.updateOrderStatus(id,updateorder).then((res)=>{
+        //console.log(orders);
+        let updateorder={id: orders.id, pname: orders.pname, category: orders.category,status: status,username: username};
+        AdminService.updateOrderStatus(username,updateorder).then((res)=>{
             if(res.data.error)
             {
                 window.alert(res.data.msg);
-                navigateToPage(`/admin/user/orders/updatestatus/${id}/${orders}`);
+                navigateToPage(`/admin/user/orders/updatestatus/${username}/${orders}`);
             }
             else{
                 window.confirm(res.data.msg);
-                navigateToPage(`/admin/user/orders/${id}`);
+                navigateToPage(`/admin/user/orders/${username}`);
             }
         })
     }

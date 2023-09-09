@@ -55,8 +55,9 @@ export default class ViewAllUsers extends Component {
         })
     }
 
-    vieworders=(id)=>{
-        window.location.href=`/admin/user/orders/${id}`;
+    vieworders=(username)=>{
+        
+        window.location.href=`/admin/user/orders/${username}`;
     }
 
   render() {
@@ -84,7 +85,7 @@ export default class ViewAllUsers extends Component {
                                 <td>{user.userstatus}</td>
                                 <td>{user.userstatus==='blocked' ? <button type="button" onClick={()=>this.unblockUser(user.id)} class="btn btn-success">UnBlock</button> : <button type="button" onClick={()=>this.blockUser(user.id)} class="btn btn-success">Block</button> }
                                 &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onClick={()=> this.deleteuser(user.id)} class="btn btn-danger">Delete</button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onClick={()=> this.vieworders(user.id)} class="btn btn-danger">View Orders</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onClick={()=> this.vieworders(user.username)} class="btn btn-danger">View Orders</button>
                             
                                 </td>
                             </tr>

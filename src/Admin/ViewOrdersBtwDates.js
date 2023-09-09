@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import AdminService from '../Service/AdminService';
-import CommonService from '../Service/CommonService';
+
 
 export default class ViewOrders extends Component {
     constructor(props)
@@ -23,14 +23,11 @@ export default class ViewOrders extends Component {
     }
     componentDidMount = (e)=>{
         
-        CommonService.getAllCategories().then((res)=>{
+        AdminService.getAllCategories().then((res)=>{
             this.setState({ category: res.data});
-
         })
 
-        AdminService.getAllOrders().then((res)=>{
-            this.setState({orders: res.data});
-        })
+        
     }
     changeFromDate = (event)=>{
         this.setState({dateone: event.target.value});
@@ -75,7 +72,7 @@ export default class ViewOrders extends Component {
                             </div>
                             <br></br>
                             <select value={this.state.setCat} onChange={this.setSelectedCategory} >
-                                <option value='select category'>Select Category</option>
+                                <option value=''>Select Category</option>
                                 {
                                     this.state.category.map(
                                         cat =>
@@ -98,7 +95,7 @@ export default class ViewOrders extends Component {
                     <table className='table table-striped table-bordered'>
                         <thead>
                             <tr>
-                                <td>User Id</td>
+                                <td>User Name</td>
                                 <td>Product Category</td>
                                 <td>Product Name</td>
                                 <td>Product Cost</td>
@@ -114,7 +111,7 @@ export default class ViewOrders extends Component {
                                 this.state.orders.map(
                                     order=>
                                     <tr key={order.id}>
-                                        <td>{order.uid}</td>
+                                        <td>{order.uname}</td>
                                         <td>{order.category}</td>
                                         <td>{order.pname}</td>
                                         <td>{order.pcost}</td>

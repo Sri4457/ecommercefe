@@ -3,7 +3,7 @@ const get_user_id="http://localhost:8080/user";
 const get_id_by_uname="http://localhost:8080/user/getid";
 const update_user="http://localhost:8080/user/update";
 const add_to_cart="http://localhost:8080/user/addtocart";
-const get_cart_by_userid="http://localhost:8080/user/getcartbyuname";
+const get_cart_by_username="http://localhost:8080/user/getcartbyuname";
 const delete_item_in_cart="http://localhost:8080/user/deleteitem";
 const get_cart_by_id="http://localhost:8080/user/getcartbyCartid";
 const update_cart="http://localhost:8080/user/updatecart";
@@ -35,9 +35,9 @@ class UserService{
     {
         return axios.put(update_cart,cart);
     }
-    getCartByUId(id)
+    getCartByUname(uname)
     {
-        return axios.get(get_cart_by_userid+"/"+id);
+        return axios.get(get_cart_by_username+"/"+uname);
     }
 
     getCartById(id)
@@ -54,9 +54,9 @@ class UserService{
         return axios.post(submit_cart,carts)
     }
 
-    getOrdersByUId(id)
+    getOrdersByUname(uname)
     {
-        return axios.get(get_user_orders+"/"+id);
+        return axios.get(get_user_orders+"/"+uname);
     }
 
     getPassword(uname)

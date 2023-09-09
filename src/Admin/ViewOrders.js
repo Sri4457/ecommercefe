@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom'
 import AdminService from '../Service/AdminService';
 
 export default function ViewOrders() {
-    const id=parseInt(useParams().id);
+    const username=useParams().username;
     const [orders,setOrders]=useState([]);
     
 
     useEffect(()=>{
-        AdminService.getOrdersByUid(id).then((res)=>{
+        console.log(username)
+        AdminService.getOrdersByUname(username).then((res)=>{
             setOrders(res.data);
         })
     },[]);
@@ -18,7 +19,7 @@ export default function ViewOrders() {
     }
 
     const updatestatus= (e)=>{
-        const orderitem = `id=${id}&e=${encodeURIComponent(JSON.stringify(e))}`;
+        const orderitem = `username=${username}&e=${encodeURIComponent(JSON.stringify(e))}`;
         navigateToPage(`/admin/user/orders/updatestatus?${orderitem}`);
     }
 
@@ -37,6 +38,7 @@ export default function ViewOrders() {
                         <td>No of items</td>
                         <td>Total Cost of product</td>
                         <td>Status of order</td>
+                        <td>Order Date</td>
                         <td>Address</td>
                         <td>Actions</td>
                     </tr>
@@ -54,6 +56,7 @@ export default function ViewOrders() {
                                 <td>
                                     {order.order_status}
                                 </td>
+                                <td>{order.orderdate}</td>
                                 <td>{order.address}</td>
                                 <td>
                                     <button className='btn btn-warning' onClick={()=> updatestatus(order)} >Update Status</button>

@@ -38,7 +38,7 @@ export default class Welcome extends Component {
           window.alert(res.data.msg);
           this.navigateToPage("/");
         }
-        else if(res.data.id===1){
+        else if(res.data.username==='admin'){
           window.confirm(res.data.msg);
 
           this.navigateToPage("/admin");
@@ -46,7 +46,7 @@ export default class Welcome extends Component {
         else
         {
           window.confirm(res.data.msg);
-          this.navigateToPage(`/user/updateprofile/${res.data.id}`);
+          this.navigateToPage(`/user/updateprofile/${res.data.username}`);
         }
     });
   }

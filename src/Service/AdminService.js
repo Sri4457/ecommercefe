@@ -12,10 +12,10 @@ const delete_ptoduct="http://localhost:8080/admin/product/delete"
 const get_product_by_id="http://localhost:8080/admin/product/findbyid"
 const update_product="http://localhost:8080/admin/product/update"
 const delete_product_by_qty="http://localhost:8080/admin/product/deletebyqty"
-const get_orders_by_uid="http://localhost:8080/admin/user/viewordersbyuid"
+const get_orders_by_uname="http://localhost:8080/admin/user/viewordersbyuname"
 const update_status_of_order="http://localhost:8080/admin/orders/updateorder"
 const get_all_orders="http://localhost:8080/admin/viewallorders";
-
+const get_categories_of_orders="http://localhost:8080/admin/viewallcategoriesoforders"
 class AdminService{
 
     getUser(){
@@ -76,18 +76,23 @@ class AdminService{
         return axios.delete(delete_product_by_qty+"/"+qty);
     }
 
-    getOrdersByUid(id)
+    getOrdersByUname(uname)
     {
-        return axios.get(get_orders_by_uid+"/"+id);
+        console.log(uname);
+        return axios.get(get_orders_by_uname+"/"+uname);
     }
 
-    updateOrderStatus(id,or)
+    updateOrderStatus(username,or)
     {
-        return axios.put(update_status_of_order+"/"+id,or);
+        return axios.put(update_status_of_order+"/"+username,or);
     }
 
     getAllOrders(){
         return axios.get(get_all_orders);
+    }
+
+    getAllCategories(){
+        return axios.get(get_categories_of_orders);
     }
 
 }

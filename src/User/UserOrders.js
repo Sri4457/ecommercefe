@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom'
 import UserService from '../Service/UserService';
 
 export default function UserOrders() {
-    const id=parseInt(useParams().id);
+    const username=useParams().username;
     const [orders,setOrders]=useState([]);
 
     useEffect(()=>{
-        UserService.getOrdersByUId(id).then((res)=>{
+        UserService.getOrdersByUname(username).then((res)=>{
             setOrders(res.data);
         })
     },[])

@@ -5,7 +5,7 @@ import UserService from '../Service/UserService';
 export default function UpdateItem() {
 
     const cartid=parseInt(useParams().cid);
-    const userid=parseInt(useParams().id);
+    const username=useParams().username;
     const [prodname,setProdName]=useState('');
     const [prodcat,setProdCat]=useState('');
     const [price,setPrice]=useState(0);
@@ -31,16 +31,16 @@ export default function UpdateItem() {
     const updateCart = e =>
     {
         e.preventDefault();
-        let cart={id: cartid,userid: userid,productname:prodname, productcat: prodcat,price: price, qty: qty};
+        let cart={id: cartid,username: username,productname:prodname, productcat: prodcat,price: price, qty: qty};
         UserService.updateCart(cart).then((res)=>{
             if(res.data.error)
             {
                 window.alert(res.data.msg);
-                navigateToPage(`/user/updatecartitem/${userid}/${cartid}`);
+                navigateToPage(`/user/updatecartitem/${username}/${cartid}`);
             }
             else{
                 window.confirm(res.data.msg);
-                navigateToPage(`/user/viewcart/${userid}`);
+                navigateToPage(`/user/viewcart/${username}`);
             }
         })
     }
@@ -55,7 +55,7 @@ export default function UpdateItem() {
             }
             else{
                 window.confirm(res.data.msg);
-                navigateToPage(`/user/viewcart/${userid}`);
+                navigateToPage(`/user/viewcart/${username}`);
             }
         })
     }
